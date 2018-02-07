@@ -42,7 +42,7 @@ define([ "core/js/adapt" ], function(Adapt) {
 		Hub.Queue([ "Typeset", Hub, $element ]);
 	}
 
-	Adapt.once("app:dataReady", setUpMathJax).on({
+	Adapt.once("pageView:postRender", setUpMathJax).on({
 		"mathJax:processMath": onProcessMath,
 		"mathJax:endProcess": onEndProcess,
 		"menuView:ready pageView:ready": onViewReady,
