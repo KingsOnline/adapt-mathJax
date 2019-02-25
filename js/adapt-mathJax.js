@@ -35,7 +35,7 @@ define([ "core/js/adapt" ], function(Adapt) {
 		};
 		var src = config ?
 			config._src :
-			"//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+			"//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
 
 		loadScript({ 
 			type: "text/x-mathjax-config",
