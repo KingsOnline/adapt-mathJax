@@ -82,11 +82,13 @@ define([ "core/js/adapt" ], function(Adapt) {
 				var Hub = window.MathJax.Hub;
 				window.MathJax.Ajax.config.path["a11y"] = "//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/extensions/a11y";
 				Hub.Config({
-				  extensions: ["[a11y]/accessibility-menu.js", "[a11y]/collapsible.js", "[a11y]/auto-collapse.js", "[a11y]/explorer.js"],
+				  extensions: [ "[a11y]/collapsible.js", "[a11y]/auto-collapse.js", "[a11y]/explorer.js", "[a11y]/semantic-enrich.js", "[a11y]/mathjax-sre.js"],
 				  menuSettings: {
 				    collapsible: true,
 				    autocollapse: true,
-				    explorer: true
+				    explorer: true,
+						semanticEnrich: true,
+						mathjaxSre: true,
 				  }
 				});
 				Hub.Queue([ "Typeset", Hub, view.el ]);
