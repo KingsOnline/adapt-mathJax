@@ -5,7 +5,7 @@ define([ "core/js/adapt" ], function(Adapt) {
 		var script = document.createElement('script');
 
 		script.type = scriptObject.type || 'text/javascript';
-    
+
 		if (scriptObject.src) {
 			script.src = scriptObject.src;
 		}
@@ -13,14 +13,14 @@ define([ "core/js/adapt" ], function(Adapt) {
 		if (scriptObject.text) {
 			script.text = scriptObject.text;
 		}
-    
+
 		if (callback) {
 			// Then bind the event to the callback function.
 			// There are several events for cross browser compatibility.
 			script.onreadystatechange = callback;
 			script.onload = callback;
 		}
-    
+
         // Append the <script> tag.
         head.appendChild(script);
 	}
@@ -28,7 +28,21 @@ define([ "core/js/adapt" ], function(Adapt) {
 	function setUpMathJax() {
 		Adapt.trigger('plugin:beginWait');
 
-		var config = Adapt.config.get("_mathJax");
+		//var config = Adapt.config.get("_mathJax");
+		var config = {
+			"_inlineConfig": {
+    		"extensions": [
+    			"tex2jax.js"
+    		],
+    		"jax": [
+    			"input/TeX",
+    			"output/HTML-CSS"
+    		]
+    	},
+    	"_src": "//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+		};
+
+
 		var inlineConfig = config ? config._inlineConfig : {
 				"extensions": [ "tex2jax.js" ],
 				"jax": [ "input/TeX", "output/HTML-CSS" ]
@@ -37,7 +51,7 @@ define([ "core/js/adapt" ], function(Adapt) {
 			config._src :
 			"//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
 
-		loadScript({ 
+		loadScript({
 			type: "text/x-mathjax-config",
 			text: "MathJax.Hub.Config(" + JSON.stringify(inlineConfig) + ");"
 		});
@@ -66,6 +80,14 @@ define([ "core/js/adapt" ], function(Adapt) {
 				window.setTimeout(checkForMathJax, 200);
 			} else {
 				var Hub = window.MathJax.Hub;
+				Hub.Config({
+				  extensions: ["[a11y]/accessibility-menu.js"],
+				  menuSettings: {
+				    collapsible: true,
+				    autocollapse: true,
+				    explorer: true
+				  }
+				});
 				Hub.Queue([ "Typeset", Hub, view.el ]);
 			}
 		}
