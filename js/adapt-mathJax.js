@@ -80,8 +80,9 @@ define([ "core/js/adapt" ], function(Adapt) {
 				window.setTimeout(checkForMathJax, 200);
 			} else {
 				var Hub = window.MathJax.Hub;
+				window.MathJax.Ajax.config.path["a11y"] = "//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/extensions/a11y";
 				Hub.Config({
-				  extensions: ["[a11y]/accessibility-menu.js"],
+				  extensions: ["[a11y]/accessibility-menu.js", "[a11y]/collapsible.js", "[a11y]/auto-collapse.js", "[a11y]/explorer.js"],
 				  menuSettings: {
 				    collapsible: true,
 				    autocollapse: true,
