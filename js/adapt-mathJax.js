@@ -39,7 +39,7 @@ define([ "core/js/adapt" ], function(Adapt) {
     			"output/HTML-CSS"
     		]
     	},
-    	"_src": "//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    	"_src": "//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
 		};
 
 
@@ -49,7 +49,7 @@ define([ "core/js/adapt" ], function(Adapt) {
 		};
 		var src = config ?
 			config._src :
-			"//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+			"//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
 
 		loadScript({
 			type: "text/x-mathjax-config",
