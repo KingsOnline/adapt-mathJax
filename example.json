@@ -1,12 +1,12 @@
 "_mathJax": {
 	"_inlineConfig": {
 		"extensions": [
-			"tex2jax.js"
+			"tex2jax.js", "[a11y]/accessibility-menu.js"
 		],
 		"jax": [
 			"input/TeX",
 			"output/HTML-CSS"
 		]
 	},
-	"_src": "//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js"
+	"_src": "//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"
 }
