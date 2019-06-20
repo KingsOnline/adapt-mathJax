@@ -21,44 +21,28 @@ define([ "core/js/adapt" ], function(Adapt) {
 			script.onload = callback;
 		}
 
-        // Append the <script> tag.
-        head.appendChild(script);
+		// Append the <script> tag.
+		head.appendChild(script);
 	}
 
 	function setUpMathJax() {
-		Adapt.trigger('plugin:beginWait');
+		Adapt.wait ? Adapt.wait.begin() : Adapt.trigger("plugin:beginWait");
 
-		//var config = Adapt.config.get("_mathJax");
-		var config = {
-			"_inlineConfig": {
-    		"extensions": [
-    			"tex2jax.js"
-    		],
-    		"jax": [
-    			"input/TeX",
-    			"output/HTML-CSS"
-    		]
-    	},
-    	"_src": "//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-		};
-
-
+		var config = Adapt.config.get("_mathJax");
 		var inlineConfig = config ? config._inlineConfig : {
-				"extensions": [ "tex2jax.js" ],
+				"extensions": [ "tex2jax.js", "[a11y]/accessibility-menu.js" ],
 				"jax": [ "input/TeX", "output/HTML-CSS" ]
 		};
-		var src = config ?
-			config._src :
-			"//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+		var src = config ? config._src : "//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
 
-		loadScript({
+		loadScript({ 
 			type: "text/x-mathjax-config",
 			text: "MathJax.Hub.Config(" + JSON.stringify(inlineConfig) + ");"
 		});
 
 		loadScript({ src: 'assets/mathJaxInit.js' }, function() {
 			loadScript({ src: src }, function() {
-				Adapt.trigger('plugin:endWait');
+				Adapt.wait ? Adapt.wait.end() : Adapt.trigger("plugin:endWait");
 			});
 		});
 	}
@@ -80,17 +64,6 @@ define([ "core/js/adapt" ], function(Adapt) {
 				window.setTimeout(checkForMathJax, 200);
 			} else {
 				var Hub = window.MathJax.Hub;
-				window.MathJax.Ajax.config.path["a11y"] = "//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/extensions/a11y";
-				Hub.Config({
-				  extensions: [ "[a11y]/collapsible.js", "[a11y]/auto-collapse.js", "[a11y]/explorer.js", "[a11y]/semantic-enrich.js", "[a11y]/mathjax-sre.js"],
-				  menuSettings: {
-				    collapsible: true,
-				    autocollapse: true,
-				    explorer: true,
-						semanticEnrich: true,
-						mathjaxSre: true,
-				  }
-				});
 				Hub.Queue([ "Typeset", Hub, view.el ]);
 			}
 		}
@@ -109,8 +82,7 @@ define([ "core/js/adapt" ], function(Adapt) {
 	Adapt.once("app:dataReady", setUpMathJax).on({
 		"mathJax:processMath": onProcessMath,
 		"mathJax:endProcess": onEndProcess,
-		"menuView:ready": onViewReady,
-		"pageView:ready": onViewReady,
+		"menuView:ready pageView:ready": onViewReady,
 		"popup:opened": onPopupOpened
 	});
 
